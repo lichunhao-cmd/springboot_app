@@ -1,0 +1,8 @@
+/* pages/order-details/index.wxss */
+
+.order_info{
+  height: 180px;
+  border-radius: 10px;
+  background: rgb(255, 255, 255);
+  margin: 6px;
+}

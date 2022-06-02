@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.restaurant.mapper.TableMapper">
+
+    <select id="listTables" resultType="com.example.restaurant.dto.TableDTO">
+        SELECT table_type as tableType,count(table_status=0 or null) as number
+        FROM `table`
+        GROUP BY table_type
+    </select>
+
+    <update id="updateTable" >
+        update `table`
+                set table_status = 1
+        where table_number = #{tableNumber}
+    </update>
+
+    <update id="updateTableForNull">
+        update `table`
+        set table_status = 0
+        where table_number = #{tableNumber}
+    </update>
+
+    <select id="listNullTables" resultType="com.example.restaurant.entity.Table">
+        select *
+        from `table`
+        where table_status = 0
+    </select>
+
+</mapper>

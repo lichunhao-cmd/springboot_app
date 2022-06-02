@@ -1,0 +1,31 @@
+<!--pages/pay/index.wxml-->
+<view class="goods-title">商品明细</view>
+<van-row custom-class="detail" wx:for="{{goodsList}}" wx:key="id">
+	<van-col span="18">
+		<view class="detail-1">{{item.goodsName}}</view>
+	</van-col>
+	<van-col span="3" class="num">{{item.quantity}}</van-col>
+	<van-col span="3" class="price">¥{{item.goodsPrice}}</van-col>
+</van-row>
+
+<view class="amount">共计 {{allGoodsNumber}} 件商品，小计：¥ {{allGoodsPrice}}</view>
+
+<view>
+	<van-cell-group>
+  <van-field
+    value="{{ message }}"
+    label="备注："
+    type="textarea"
+    placeholder="请输入..."
+    autosize
+    bind:change="getRemarks"
+  />
+</van-cell-group>
+</view>
+<van-dialog id="van-dialog" />
+<!-- 提交订单 -->
+<van-submit-bar
+  price="{{ allGoodsPrice*100 }}"
+  button-text="提交订单"
+  bind:submit="onSubmit"
+/>

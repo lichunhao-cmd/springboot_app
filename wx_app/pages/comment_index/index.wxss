@@ -1,0 +1,6 @@
+/* pages/comment_index/index.wxss */
+
+.comment{
+  min-height: 100px;
+  
+}

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.restaurant.mapper.OrderMapper">
+
+
+    <resultMap id="BaseResultMap" type="com.example.restaurant.dto.OrderDetailDTO">
+        <id column="order_id" property="orderId"/>
+        <result column="buyer_name" property="buyerName"/>
+        <result column="buyer_table_number" property="buyerTableNumber"/>
+        <result column="order_amount" property="orderAmount"/>
+        <result column="pay_status" property="payStatus"/>
+        <result column="create_time" property="createTime"/>
+        <result column="buyer_remarks" property="buyerRemarks"/>
+        <collection property="orderDetails" ofType="com.example.restaurant.entity.OrderDetail" javaType="ArrayList">
+            <result column="goods_icon" property="goodsIcon"/>
+        </collection>
+    </resultMap>
+
+    <insert id="insertOrderMaster">
+        INSERT INTO order_master(order_id, buyer_name, buyer_phone, buyer_table_number, buyer_openid, order_amount, order_status, pay_status,buyer_remarks)
+            VALUES (#{orderId}, #{buyerName},
+                    #{buyerPhone}, #{buyerTableNumber},
+                    #{buyerOpenid}, #{orderAmount},
+                    #{orderStatus}, #{payStatus},
+                    #{buyerRemarks})
+
+    </insert>
+
+    <insert id="insertOrderDetail">
+        INSERT INTO order_detail (detail_id, order_id, goods_id, goods_name, goods_price, goods_quantity)
+        VALUES
+        <foreach collection="orderDTOS" item="orderDTO" separator=",">
+            (null, #{orderDTO.orderId},
+            #{orderDTO.goodsId}, #{orderDTO.goodsName},
+            #{orderDTO.goodsPrice}, #{orderDTO.quantity})
+        </foreach>
+    </insert>
+
+    <select id="selectOrder" resultMap="BaseResultMap">
+        SELECT om.*,gi.goods_icon
+        from order_master om LEFT JOIN order_detail od on om.order_id = od.order_id
+                             LEFT JOIN goods_info gi on gi.goods_id = od.goods_id
+        where om.buyer_openid = #{openId}
+        order by om.create_time desc
+    </select>
+
+    <select id="selectOrderCommentNull" resultMap="BaseResultMap">
+        SELECT om.*,gi.goods_icon
+        from order_master om LEFT JOIN order_detail od on om.order_id = od.order_id
+                             LEFT JOIN goods_info gi on gi.goods_id = od.goods_id
+        where om.buyer_openid = #{openId} and order_status = 0
+    </select>
+
+    <update id="updateOrderStatus">
+        update order_master
+            set order_status = 1
+        where order_id = #{orderId}
+    </update>
+
+    <select id="selectOrderForPage" resultType="com.example.restaurant.entity.OrderMaster">
+        select om.*,u.nick_name buyerName
+        from order_master om left join `user` u on  om.buyer_openid = u.open_id
+        limit #{page},#{limit}
+    </select>
+</mapper>

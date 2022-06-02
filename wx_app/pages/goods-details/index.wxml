@@ -1,0 +1,34 @@
+<!--pages/goods-details/index.wxml-->
+<view class="container">
+<!-- 图片 -->
+  <view class="swiper-container" id="swiper-container">    
+        <image src="{{baseGoodsUrl+goodsDetail.goodsIcon}}" class="slide-image" mode="aspectFill" lazy-load="true" />
+  </view>
+  <!--  -->
+  <view class="goods-info">
+    <view class="goods-info-top-container">
+      <view class="goods-profile">
+        <view class="p"><text>¥</text> {{goodsDetail.goodsPrice}}</view>
+      </view>
+    </view>
+    <view class="goods-title">{{goodsDetail.goodsName}}</view>
+  </view>
+  
+  
+  
+  <view class="goods-des-info" id="goods-des-info">
+    <view class="label-title">
+      <view class="left">商品详情</view>
+    </view>
+    <view class="goods-text">
+      <text>{{goodsDetail.goodsDescription}}</text>
+    </view>
+  </view>
+  <van-goods-action>
+    <van-goods-action-button text="加入购物车" type="warning"
+      bind:click="{{goodsDetailSkuShowType==0?'toAddShopCar':'addShopCar'}}" />
+  </van-goods-action>
+</view>
+
+
+

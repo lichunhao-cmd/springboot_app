@@ -1,0 +1,28 @@
+<!--pages/comment_index/index.wxml-->
+
+
+
+<view style="text-align: center;"><label style="font-size: 20px;">全部评价</label></view>
+
+<van-empty wx:if="{{!commentList || commentList.length == 0}}" description="暂无评论" />
+<van-divider />
+<!-- 评论 -->
+<view class="comment" wx:for="{{commentList}}" wx:key="id">
+  <!-- 名称，时间，评分，评论 -->
+<van-row>
+<van-col span="8"><van-image round width="50" height="50" style="position: relative; left: 30px;" src="{{item.avatarUrl}}" /></van-col>
+<van-col span="16"> 
+<view>
+<text>{{item.commentName}}</text>
+<text style="position: absolute;right: 20px;font-size: 12px; opacity: 0.6;">{{item.createTime}}</text>
+</view> 
+
+<van-rate
+  value="{{item.commentStars}}"
+  readonly
+  />
+  <view><text style="font-size: 12px;">{{item.commentContent}}</text></view>
+  </van-col>
+</van-row>
+<van-divider />
+</view>

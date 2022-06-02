@@ -1,0 +1,29 @@
+var common = {
+  orderStatused: function (_num) {
+    switch (_num) {
+      case 0: return "已支付"; break;
+      case 1: return "未支付"; break;
+      case 2: return "已退款"; break;
+      case 3: return "已取消"; break;
+      default: return ""; break;
+    }
+  },
+  orderPay:function(_num) {
+    switch(_num){
+      case 0: return true; break;
+      case 1: return false; break;
+    }
+  },
+  tableStatus:function (_num) {
+    if(_num == 0){
+      return true;
+    }else{
+      return false;
+    }
+  }
+}
+ 
+module.exports = {
+  orderText: common.orderStatused,
+  tableStatus: common.tableStatus
+}

@@ -1,0 +1,79 @@
+<!--pages/order-details/index.wxml-->
+
+<wxs module="Filter" src="../../utils/filter.wxs"></wxs>
+<van-tabs active="{{ active }}" bind:change="onChange">
+  <!-- 全部订单 -->
+  <van-tab title="全部">
+  <view style=" background: rgb(241, 238, 238);">
+    <van-divider />
+    <view wx:for="{{orderList}}" wx:key="id" class="order_info">
+   <view>
+    <van-row>
+    <van-col span="18"><text style="position: relative;left: 10px;">座号: #{{item.buyerTableNumber}}号</text></van-col>
+    <van-col span="6"><text style="color: red;">{{Filter.orderText(item.payStatus)}}</text></van-col>
+  </van-row>
+  <van-row>
+    <van-col span="16"><text style="font-size: 12px;opacity: 0.6;position: relative;left: 10px;">单号:{{item.orderId}}</text></van-col>
+    <van-col span="8"><text style="font-size: 12px;opacity: 0.6;">{{item.createTime}}</text></van-col>
+  </van-row>
+<!-- 详情 -->
+<van-cell  is-link center>
+  <view slot="title">
+    <van-image width="60" wx:for="{{item.orderDetails}}" wx:key="id" height="60" src="{{baseGoodsUrl + item.goodsIcon}}" />
+  </view>
+</van-cell>
+<!-- 支付 -->
+<van-row style="position: relative; top: 10px;">
+    <van-col span="12" style="position: relative; left: 10px;">合计:<text style="position: relative; left: 10px; color: red;">{{item.orderAmount}}</text></van-col>
+
+    <view wx:if="{{item.payStatus == 1}}">
+      <van-col span="6"><van-button round type="info" size="mini" color="red" bind:click="toPayCancel">取消订单</van-button></van-col>
+      <van-col span="6"><van-button round type="info" size="mini" color="red" bind:click="toPay">立即付款</van-button></van-col>
+    </view>
+    <view wx:else="{{item.payStatys == 0 }}"></view>
+   
+
+  </van-row>
+  </view>
+</view>
+</view>
+  </van-tab>
+  <!-- 待支付 -->
+  <van-tab title="待付款">
+    
+  </van-tab>
+
+  <!-- 待评价 -->
+  <van-tab title="待评价">
+    <!-- 未评价订单 -->
+  <view style=" background: rgb(241, 238, 238);">
+    <van-divider />
+    <view wx:for="{{orderListNull}}" wx:key="id" class="order_info">
+   <view>
+    <van-row>
+    <van-col span="18"><text style="position: relative;left: 10px;">座号: #{{item.buyerTableNumber}}号</text></van-col>
+    <van-col span="6"><text style="color: red;">{{Filter.orderText(item.payStatus)}}</text></van-col>
+  </van-row>
+  <van-row>
+    <van-col span="16"><text style="font-size: 12px;opacity: 0.6;position: relative;left: 10px;">单号:{{item.orderId}}</text></van-col>
+    <van-col span="8"><text style="font-size: 12px;opacity: 0.6;">{{item.createTime}}</text></van-col>
+  </van-row>
+<!-- 详情 -->
+<van-cell  is-link center>
+  <view slot="title">
+    <van-image width="60" wx:for="{{item.orderDetails}}" wx:key="id" height="60" src="{{baseGoodsUrl + item.goodsIcon}}" />
+  </view>
+</van-cell>
+<!-- 评价 -->
+<van-row style="position: relative; top: 10px;">
+    <van-col span="12" style="position: relative; left: 10px;">合计:<text style="position: relative; left: 10px; color: red;">{{item.orderAmount}}</text></van-col>
+
+    <view >
+      <van-col span="6" offset="18"><van-button round type="info" size="mini" color="red" data-id="{{item.orderId}}" bind:click="toComment">去评价</van-button></van-col>
+    </view>
+  </van-row>
+  </view>
+</view>
+</view>
+  </van-tab>
+</van-tabs>  

@@ -1,0 +1,41 @@
+/* pages/pay/index.wxss */
+
+.goods-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  background-color: #ffffff;
+  padding: 32rpx;
+}
+
+.detail {
+  background-color: #ffffff;
+  padding: 8rpx 32rpx;
+}
+
+.detail .detail-1 {
+  font-size: 28rpx;
+}
+
+.detail .detail-2 {
+  font-size: 25rpx;
+}
+
+.detail .num {
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.detail .price {
+  font-size: 28rpx;
+  /* text-align: center; */
+  text-align: right;
+}
+
+.amount {
+  text-align: right;
+  padding-right: 32rpx;
+  background-color: #ffffff;
+  font-size: 28rpx;
+  padding-bottom: 32rpx;
+  padding-top: 32rpx;
+}

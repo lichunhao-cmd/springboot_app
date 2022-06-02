@@ -1,0 +1,31 @@
+<!--pages/queue/index.wxml-->
+<wxs module="Filter" src="../../utils/filter.wxs"></wxs>
+<!-- 分区 获取座号 -->
+<view class="btn-groups">
+  <van-button disabled="{{Filter.tableStatus(tableList[0].number)}}" custom-class="btn"  type="primary" block bind:click="queuingGetA" data-index="{{ index }}">{{ item.name }} ( A区：共 3号 | 空位： {{tableList[0].number}} 号)</van-button>
+  <van-button disabled="{{Filter.tableStatus(tableList[1].number)}}" custom-class="btn"  type="primary" block bind:click="queuingGetB" data-index="{{ index }}">{{ item.name }} ( B区：共 4号 | 空位： {{tableList[1].number}} 号)</van-button>
+  <van-button disabled="{{Filter.tableStatus(tableList[2].number)}}" custom-class="btn"  type="primary" block bind:click="queuingGetC" data-index="{{ index }}">{{ item.name }} ( C区：共 3号 | 空位： {{tableList[2].number}} 号)</van-button>
+</view>
+<view>温馨提示：<text>A区1-2人、B区3-4人、C区5-7人</text></view>
+<van-divider />
+
+
+<van-swipe-cell bind:click="tableChange">
+
+
+<van-cell-group wx:if="{{tableStatus}}" title="我的号子">
+  <van-cell
+    value-class="cell-red"
+    label= "您的座位："
+    value="{{ tableNumber }}号"
+  />
+</van-cell-group>
+</van-swipe-cell>
+
+<van-action-sheet
+  show="{{ show }}"
+  actions="{{ actions }}"
+  bind:close="onClose"
+  bind:select="onSelect"
+>
+</van-action-sheet>

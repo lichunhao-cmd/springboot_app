@@ -1,0 +1,20 @@
+<!--pages/comments/index.wxml-->
+
+
+<van-rate value="{{ value }}" bind:change="onChange" size="30px"/>
+
+
+  <van-cell-group>
+  <van-field
+    value="{{ message }}"
+    left-icon="edit"
+    type="textarea"
+    placeholder="请输入...  "
+    autosize="{{ autosize}}"
+    show-word-limit
+    maxlength="100"
+    bind:change="onChangeText"
+  />
+</van-cell-group>
+
+<van-button round type="info" size="large" bind:click="onSubmit">提交</van-button>

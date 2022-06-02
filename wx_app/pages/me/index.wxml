@@ -1,0 +1,30 @@
+<!--pages/me/index.wxml-->
+
+<view class="my-bar">
+		<view class="login-btn">
+			<button wx:if="{{!hasUserInfo}}" open-type="getUserInfo" bind:getuserinfo="onGetUserInfo">立即登录</button>
+			<view class="avatar-container avatar-position">
+			<view style="text-align: center;">
+				<van-image
+							
+							round
+							width="10rem"
+							height="10rem"
+							src="{{userInfo.avatarUrl}}"
+							wx:if="{{hasUserInfo}}"
+						/>
+			</view>
+				<view style="text-align: center;height: 30px;">
+					<open-data wx:if="{{hasUserInfo}}" type="userNickName" style="position: relative;top: 15px;"></open-data>
+				</view>
+   </view>
+		</view>	
+</view>
+<view class="my-bar1">
+	<van-cell icon="user-o" title="个人信息" size="large" is-link url="/pages/booking/index" />
+	<van-cell icon="underway-o" title="秒杀入口" size="large" is-link url="/pages/seckill/seckill" />
+	<van-cell icon="clock-o" title="在线订座" size="large" is-link url="/pages/booking/index" />
+	<van-cell icon="coupon-o" title="优惠卷领取" size="large" is-link url="/pages/booking/index" />
+	<van-cell icon="location-o" title="关于门店" size="large" is-link url="/pages/youhui-pay/index" />
+	<van-cell icon="friends-o" title="关于作者" size="large" is-link url="/pages/youhui-pay/index" />
+</view>

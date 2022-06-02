@@ -1,0 +1,32 @@
+
+
+server:
+  port: 8080
+
+# 数据库
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://www.lichunhao.ltd:3306/restaurant
+    username: root
+    password: 123456
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  redis:
+    host: www.lichunhao.ltd
+    port: 6379
+
+  rabbitmq:
+    username: guest
+    password: guest
+    host: www.lichunhao.ltd
+    port: 5672
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true

@@ -1,0 +1,12 @@
+<!--pages/seckill/seckill.wxml-->
+<van-card
+  num="1"
+  price="10.00"
+  desc="描述信息"
+  title="商品标题"
+  thumb="{{ imageURL }}"
+>
+  <view slot="footer">
+    <van-button round type="primary" size="mini">秒杀</van-button>
+  </view>
+</van-card>

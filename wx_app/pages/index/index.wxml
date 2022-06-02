@@ -1,0 +1,102 @@
+<!--index.wxml-->
+
+<!-- 轮播图 -->
+<swiper class="swiper1" indicator-dots="true" autoplay circular>
+  <!-- 图片设置 -->
+  <swiper-item wx:for="{{carouselList}}" wx:key="id">
+    <image  mode="aspectFill" bindtap="tapBanner" data-url="{{item.carouselUrl}}" src="{{imgurl+item.carouselUrl}}" />
+  </swiper-item>
+</swiper>
+
+<!-- 通知 -->
+<van-notice-bar
+  left-icon="volume-o"
+  text="请合理点餐，避免浪费"
+/>
+
+<van-cell title="最好的服务送给你" is-link  value="顾客评论" bind:click="toComments"/>
+<!-- 数据中心 -->
+
+    
+    <!-- 商品显示 -->
+   <view class="box1">
+  <!-- 侧边栏 -->
+  <view class="box-1">
+    
+    <van-sidebar> 
+      <van-sidebar-item
+      wx:key="id"
+      wx:for="{{menu_list}}"
+      title="{{item.categoryName}}"
+      bind:click="changeRightMenu"
+      data-id="{{item.id}}"
+      />
+    </van-sidebar>
+
+</view >
+  <!-- 商品列表 -->
+
+  <scroll-view class="box-2" scroll-y="true">
+    <van-empty wx:if="{{!foodList || foodList.length == 0}}" description="暂无商品" />
+    <van-card
+      wx:for="{{foodList}}"  
+      wx:key="id"
+      centered="true"
+      lazy-load="true"
+      origin-price="{{item.originalPrice > 0 ? item.originalPrice : ''}}"
+      price="{{item.goodsPrice}}"
+      thumb-mode="aspectFill"
+      tag="{{ item.badge ? item.badge : '' }}"
+      desc="{{item.goodsDescription}}"
+      title="{{item.goodsName}}"
+      thumb-link="/pages/goods-details/index?goodsId={{ item.goodsId }}"
+      thumb="{{baseGoodsUrl+item.goodsIcon}}">
+      <!-- 按钮 -->
+      <view class="goods-btn" slot="footer">
+        <van-icon name="add" color="#e64340" size="50rpx" data-id="{{item.goodsId}}" bind:click="addCart1" />
+      </view>
+    </van-card>
+  </scroll-view>
+  
+</view>
+
+
+  <!-- 底部购物车 -->
+<view class="cart-bar" wx:if="{{carList.length > 0}}" >
+  <view class="l" bindtap="showCartPop">
+    <van-button type="default" round icon="shopping-cart-o">购物车</van-button>
+    <view class="badge">{{carList.number}}</view>
+  </view>  
+  <view class="r">
+    <view class="amount"><text>¥</text>{{totalPrice}}</view>
+    <view wx:if="{{shopIsOpened}}" class="topay" bindtap="goPay">选好了</view>
+    <view wx:else class="topay noopen">未营业</view>
+  </view>
+</view>
+<!-- 购物车详情 -->
+<van-popup
+  show="{{ showCartPop }}"
+  position="bottom"
+  custom-style="bottom: 100rpx;max-height: 80%;"
+  bind:close="hideCartPop">
+  
+  <view class="empty-box" bindtap="clearCart">
+    <van-icon name="delete" />
+    <view class="empty-1">清空购物车</view>
+  </view>
+  <!-- 购物车商品 -->
+  <view wx:for="{{carList}}" wx:key="id" class="cart-goods-list">
+    <view class="l">
+      <view class="title">{{item.goodsName}}</view>
+      <!-- <view wx:if="{{item.sku}}" class="content">
+        <block wx:for="{{item.sku}}" wx:key="optionValueId" wx:for-item="_sku">{{_sku.optionValueName}} </block>
+        <block wx:for="{{item.additions}}" wx:for-item="option" wx:key="index">{{option.name}} </block>
+      </view> -->
+    </view>
+    <view class="r">
+      <view class="price">¥{{ item.goodsPrice }}</view>
+      <van-stepper value="{{ item.quantity }}" min="0" async-change disable-input data-id="{{item.id}}" bind:change="cartStepChange"/>
+    </view>
+  </view>
+  
+</van-popup>
